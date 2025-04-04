@@ -47,7 +47,7 @@ def first_print_succ(part_name): #结束加载（成功）
 
 #各变量初始化
 
-Theme = 0
+Theme = 'acrylic'
 
 
 
@@ -141,7 +141,7 @@ def config_create():
             #开始写入
             config.write('CreateTime = '+ str(datetime.now()))
             config.write('\nlast changed = '+ str(datetime.now()))
-            config.write('\ntheme = ')
+            config.write('\ntheme = '+ Theme)
 
     else:
         print("FOUND CONFIG,LOADING CONFIG NOW...") #找到文件 读取
