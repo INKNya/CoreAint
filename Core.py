@@ -47,7 +47,7 @@ def first_print_succ(part_name): #结束加载（成功）
 
 #各变量初始化
 
-Theme = 'acrylic'
+Theme = 'acrylic' #basic Theme
 
 
 
@@ -133,6 +133,7 @@ def overs_start():
 
 def config_create():
     # 初始化创建所需文件
+    global Theme
     found_file = os.path.exists("Config.txt")
     if not found_file:
         print(Back.YELLOW + "NOT FOUND CONFIG,CREATE NOW..." + Style.RESET_ALL) #未找到文件 写入
@@ -141,13 +142,22 @@ def config_create():
             #开始写入
             config.write('CreateTime = '+ str(datetime.now()))
             config.write('\nlast changed = '+ str(datetime.now()))
-            config.write('\ntheme = '+ Theme)
+            Theme_write = '\ntheme = '+ Theme
+            config.write(Theme_write)
+
 
     else:
         print("FOUND CONFIG,LOADING CONFIG NOW...") #找到文件 读取
-    cfg = open('Config.txt')
+    cfg =open('Config.txt',"r",encoding='utf-8')
     print('----------------------------------------')
-    print(Fore.RED + cfg.read()+ Style.RESET_ALL)
+    # print(Fore.RED + cfg.read()+ Style.RESET_ALL)
+    #获取config内容
+    cfg = cfg.read().splitlines()
+    print(cfg) #以表格列出config
+    #载入config
+    Theme = cfg[3]
+
+
     first_print_succ("config_loading/create")
 
 
@@ -166,3 +176,4 @@ Config_Create.join()
 
 overs_all_loading.start() #加载结束
 overs_all_loading.join()
+#主窗口加载
