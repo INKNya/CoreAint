@@ -12,7 +12,7 @@ import tkinter
 import platform
 import time
 from threading import Thread
-from tkinter import PhotoImage
+from tkinter import PhotoImage, Frame
 from tkinter.ttk import Label
 from colorama import init,Fore,Back,Style
 init()
@@ -47,7 +47,7 @@ def first_print_succ(part_name): #结束加载（成功）
 
 #各变量初始化
 
-Theme = 'acrylic' #basic Theme
+Theme = 'aero' #basic Theme
 
 
 
@@ -100,7 +100,7 @@ def other_flies_loading():
                 time.sleep(0.01)
                 print(Fore.BLUE + '--' + i + Fore.RESET)
         print(Back.GREEN + 'ALL OTHER FILES LOAD' + Style.RESET_ALL)
-        time.sleep(0)
+        time.sleep(1)
     else:
         print(Back.YELLOW + "NO FOUND OTHER FILES-", "SKIP" + Style.RESET_ALL)
 
@@ -142,20 +142,20 @@ def config_create():
             #开始写入
             config.write('CreateTime = '+ str(datetime.now()))
             config.write('\nlast changed = '+ str(datetime.now()))
-            Theme_write = '\ntheme = '+ Theme
-            config.write(Theme_write)
+            config.write('\ntheme = ')
+            config.write('\n'+Theme)
 
 
     else:
         print("FOUND CONFIG,LOADING CONFIG NOW...") #找到文件 读取
     cfg =open('Config.txt',"r",encoding='utf-8')
     print('----------------------------------------')
-    # print(Fore.RED + cfg.read()+ Style.RESET_ALL)
     #获取config内容
     cfg = cfg.read().splitlines()
-    print(cfg) #以表格列出config
+    print((Fore.RED , cfg , Style.RESET_ALL)) #以表格列出config
     #载入config
     Theme = cfg[3]
+
 
 
     first_print_succ("config_loading/create")
@@ -176,4 +176,17 @@ Config_Create.join()
 
 overs_all_loading.start() #加载结束
 overs_all_loading.join()
+
+
+
 #主窗口加载
+main = tkinter.Tk()
+pywinstyles.apply_style(main,Theme)
+
+#GUI部件部署
+TextFrame = Frame(main,bd=100,highlightthickness=1,height=10,width=10)
+TextFrame.pack()
+
+
+main.mainloop()
+
